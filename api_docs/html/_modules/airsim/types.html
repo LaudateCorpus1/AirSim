@@ -1,75 +1,34 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>airsim.types &mdash; airsim 1.5.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>airsim.types &mdash; airsim 1.6.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> airsim
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                1.5.0
+                1.6.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -77,83 +36,33 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <!-- Local TOC -->
               <div class="local-toc"></div>
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">airsim</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-        
       <li>airsim.types</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <h1>Source code for airsim.types</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">msgpackrpc</span> <span class="c1">#install as admin: pip install msgpack-rpc-python</span>
@@ -194,6 +103,10 @@
         <span class="k">return</span> <span class="mi">6</span>
     <span class="k">def</span> <span class="nf">Infrared</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="k">return</span> <span class="mi">7</span>
+    <span class="k">def</span> <span class="nf">OpticalFlow</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">8</span>
+    <span class="k">def</span> <span class="nf">OpticalFlowVis</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">9</span>
 
     <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;DepthPlanner&#39;</span><span class="p">:</span>
@@ -208,7 +121,9 @@
     <span class="n">DisparityNormalized</span> <span class="o">=</span> <span class="mi">4</span>
     <span class="n">Segmentation</span> <span class="o">=</span> <span class="mi">5</span>
     <span class="n">SurfaceNormals</span> <span class="o">=</span> <span class="mi">6</span>
-    <span class="n">Infrared</span> <span class="o">=</span> <span class="mi">7</span></div>
+    <span class="n">Infrared</span> <span class="o">=</span> <span class="mi">7</span>
+    <span class="n">OpticalFlow</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="n">OpticalFlowVis</span> <span class="o">=</span> <span class="mi">9</span></div>
 
 <div class="viewcode-block" id="DrivetrainType"><a class="viewcode-back" href="../../index.html#airsim.types.DrivetrainType">[docs]</a><span class="k">class</span> <span class="nc">DrivetrainType</span><span class="p">:</span>
     <span class="n">MaxDegreeOfFreedom</span> <span class="o">=</span> <span class="mi">0</span>
@@ -295,8 +210,10 @@
         <span class="k">return</span> <span class="n">Quaternionr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_val</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Vector3r.to_numpy_array"><a class="viewcode-back" href="../../index.html#airsim.types.Vector3r.to_numpy_array">[docs]</a>    <span class="k">def</span> <span class="nf">to_numpy_array</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">x_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_val</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">x_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_val</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span></div>
 
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_val</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Quaternionr"><a class="viewcode-back" href="../../index.html#airsim.types.Quaternionr">[docs]</a><span class="k">class</span> <span class="nc">Quaternionr</span><span class="p">(</span><span class="n">MsgpackMixin</span><span class="p">):</span>
     <span class="n">w_val</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -385,16 +302,18 @@
         <span class="k">return</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_val</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_val</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_val</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">w_val</span><span class="o">**</span><span class="mi">2</span> <span class="p">)</span><span class="o">**</span><span class="mf">0.5</span></div>
 
 <div class="viewcode-block" id="Quaternionr.to_numpy_array"><a class="viewcode-back" href="../../index.html#airsim.types.Quaternionr.to_numpy_array">[docs]</a>    <span class="k">def</span> <span class="nf">to_numpy_array</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">x_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w_val</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">x_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w_val</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span></div>
 
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w_val</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Pose"><a class="viewcode-back" href="../../index.html#airsim.types.Pose">[docs]</a><span class="k">class</span> <span class="nc">Pose</span><span class="p">(</span><span class="n">MsgpackMixin</span><span class="p">):</span>
     <span class="n">position</span> <span class="o">=</span> <span class="n">Vector3r</span><span class="p">()</span>
     <span class="n">orientation</span> <span class="o">=</span> <span class="n">Quaternionr</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position_val</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">orientation_val</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="n">position_val</span> <span class="o">=</span> <span class="n">position_val</span> <span class="k">if</span> <span class="n">position_val</span> <span class="o">!=</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">Vector3r</span><span class="p">()</span>
-        <span class="n">orientation_val</span> <span class="o">=</span> <span class="n">orientation_val</span> <span class="k">if</span> <span class="n">orientation_val</span> <span class="o">!=</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">Quaternionr</span><span class="p">()</span>
+        <span class="n">position_val</span> <span class="o">=</span> <span class="n">position_val</span> <span class="k">if</span> <span class="n">position_val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">Vector3r</span><span class="p">()</span>
+        <span class="n">orientation_val</span> <span class="o">=</span> <span class="n">orientation_val</span> <span class="k">if</span> <span class="n">orientation_val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">Quaternionr</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position_val</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="n">orientation_val</span>
 
@@ -403,8 +322,10 @@
         <span class="k">return</span> <span class="n">Pose</span><span class="p">(</span><span class="n">Vector3r</span><span class="o">.</span><span class="n">nanVector3r</span><span class="p">(),</span> <span class="n">Quaternionr</span><span class="o">.</span><span class="n">nanQuaternionr</span><span class="p">())</span></div>
 
 <div class="viewcode-block" id="Pose.containsNan"><a class="viewcode-back" href="../../index.html#airsim.types.Pose.containsNan">[docs]</a>    <span class="k">def</span> <span class="nf">containsNan</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">containsNan</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">containsNan</span><span class="p">())</span></div></div>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">containsNan</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">containsNan</span><span class="p">())</span></div>
 
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">orientation</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="CollisionInfo"><a class="viewcode-back" href="../../index.html#airsim.types.CollisionInfo">[docs]</a><span class="k">class</span> <span class="nc">CollisionInfo</span><span class="p">(</span><span class="n">MsgpackMixin</span><span class="p">):</span>
     <span class="n">has_collided</span> <span class="o">=</span> <span class="kc">False</span>
@@ -627,7 +548,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Struct to store values of PID gains. Used to transmit controller gain values while instantiating</span>
 <span class="sd">    AngleLevel/AngleRate/Velocity/PositionControllerGains objects.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Attributes:</span>
 <span class="sd">        kP (float): Proportional gain</span>
 <span class="sd">        kI (float): Integrator gain</span>
@@ -644,7 +565,7 @@
 <div class="viewcode-block" id="AngleRateControllerGains"><a class="viewcode-back" href="../../index.html#airsim.types.AngleRateControllerGains">[docs]</a><span class="k">class</span> <span class="nc">AngleRateControllerGains</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Struct to contain controller gains used by angle level PID controller</span>
-<span class="sd">    </span>
+
 <span class="sd">    Attributes:</span>
 <span class="sd">        roll_gains (PIDGains): kP, kI, kD for roll axis</span>
 <span class="sd">        pitch_gains (PIDGains): kP, kI, kD for pitch axis</span>
@@ -656,14 +577,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">roll_gains</span> <span class="o">=</span> <span class="n">roll_gains</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pitch_gains</span> <span class="o">=</span> <span class="n">pitch_gains</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">yaw_gains</span> <span class="o">=</span> <span class="n">yaw_gains</span>
-    
+
 <div class="viewcode-block" id="AngleRateControllerGains.to_lists"><a class="viewcode-back" href="../../index.html#airsim.types.AngleRateControllerGains.to_lists">[docs]</a>    <span class="k">def</span> <span class="nf">to_lists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">roll_gains</span><span class="o">.</span><span class="n">kp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pitch_gains</span><span class="o">.</span><span class="n">kp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaw_gains</span><span class="o">.</span><span class="n">kp</span><span class="p">],</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">roll_gains</span><span class="o">.</span><span class="n">ki</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pitch_gains</span><span class="o">.</span><span class="n">ki</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaw_gains</span><span class="o">.</span><span class="n">ki</span><span class="p">],</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">roll_gains</span><span class="o">.</span><span class="n">kd</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pitch_gains</span><span class="o">.</span><span class="n">kd</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaw_gains</span><span class="o">.</span><span class="n">kd</span><span class="p">]</span></div></div>
 
 <div class="viewcode-block" id="AngleLevelControllerGains"><a class="viewcode-back" href="../../index.html#airsim.types.AngleLevelControllerGains">[docs]</a><span class="k">class</span> <span class="nc">AngleLevelControllerGains</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Struct to contain controller gains used by angle rate PID controller</span>
-<span class="sd">    </span>
+
 <span class="sd">    Attributes:</span>
 <span class="sd">        roll_gains (PIDGains): kP, kI, kD for roll axis</span>
 <span class="sd">        pitch_gains (PIDGains): kP, kI, kD for pitch axis</span>
@@ -675,14 +596,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">roll_gains</span> <span class="o">=</span> <span class="n">roll_gains</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pitch_gains</span> <span class="o">=</span> <span class="n">pitch_gains</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">yaw_gains</span> <span class="o">=</span> <span class="n">yaw_gains</span>
-    
+
 <div class="viewcode-block" id="AngleLevelControllerGains.to_lists"><a class="viewcode-back" href="../../index.html#airsim.types.AngleLevelControllerGains.to_lists">[docs]</a>    <span class="k">def</span> <span class="nf">to_lists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">roll_gains</span><span class="o">.</span><span class="n">kp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pitch_gains</span><span class="o">.</span><span class="n">kp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaw_gains</span><span class="o">.</span><span class="n">kp</span><span class="p">],</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">roll_gains</span><span class="o">.</span><span class="n">ki</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pitch_gains</span><span class="o">.</span><span class="n">ki</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaw_gains</span><span class="o">.</span><span class="n">ki</span><span class="p">],</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">roll_gains</span><span class="o">.</span><span class="n">kd</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pitch_gains</span><span class="o">.</span><span class="n">kd</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaw_gains</span><span class="o">.</span><span class="n">kd</span><span class="p">]</span></div></div>
 
 <div class="viewcode-block" id="VelocityControllerGains"><a class="viewcode-back" href="../../index.html#airsim.types.VelocityControllerGains">[docs]</a><span class="k">class</span> <span class="nc">VelocityControllerGains</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Struct to contain controller gains used by velocity PID controller</span>
-<span class="sd">    </span>
+
 <span class="sd">    Attributes:</span>
 <span class="sd">        x_gains (PIDGains): kP, kI, kD for X axis</span>
 <span class="sd">        y_gains (PIDGains): kP, kI, kD for Y axis</span>
@@ -694,14 +615,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">x_gains</span> <span class="o">=</span> <span class="n">x_gains</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y_gains</span> <span class="o">=</span> <span class="n">y_gains</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">z_gains</span> <span class="o">=</span> <span class="n">z_gains</span>
-    
+
 <div class="viewcode-block" id="VelocityControllerGains.to_lists"><a class="viewcode-back" href="../../index.html#airsim.types.VelocityControllerGains.to_lists">[docs]</a>    <span class="k">def</span> <span class="nf">to_lists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">x_gains</span><span class="o">.</span><span class="n">kp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gains</span><span class="o">.</span><span class="n">kp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_gains</span><span class="o">.</span><span class="n">kp</span><span class="p">],</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">x_gains</span><span class="o">.</span><span class="n">ki</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gains</span><span class="o">.</span><span class="n">ki</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_gains</span><span class="o">.</span><span class="n">ki</span><span class="p">],</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">x_gains</span><span class="o">.</span><span class="n">kd</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gains</span><span class="o">.</span><span class="n">kd</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_gains</span><span class="o">.</span><span class="n">kd</span><span class="p">]</span></div></div>
 
 <div class="viewcode-block" id="PositionControllerGains"><a class="viewcode-back" href="../../index.html#airsim.types.PositionControllerGains">[docs]</a><span class="k">class</span> <span class="nc">PositionControllerGains</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Struct to contain controller gains used by position PID controller</span>
-<span class="sd">    </span>
+
 <span class="sd">    Attributes:</span>
 <span class="sd">        x_gains (PIDGains): kP, kI, kD for X axis</span>
 <span class="sd">        y_gains (PIDGains): kP, kI, kD for Y axis</span>
@@ -713,7 +634,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">x_gains</span> <span class="o">=</span> <span class="n">x_gains</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y_gains</span> <span class="o">=</span> <span class="n">y_gains</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">z_gains</span> <span class="o">=</span> <span class="n">z_gains</span>
-    
+
 <div class="viewcode-block" id="PositionControllerGains.to_lists"><a class="viewcode-back" href="../../index.html#airsim.types.PositionControllerGains.to_lists">[docs]</a>    <span class="k">def</span> <span class="nf">to_lists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">x_gains</span><span class="o">.</span><span class="n">kp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gains</span><span class="o">.</span><span class="n">kp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_gains</span><span class="o">.</span><span class="n">kp</span><span class="p">],</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">x_gains</span><span class="o">.</span><span class="n">ki</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gains</span><span class="o">.</span><span class="n">ki</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_gains</span><span class="o">.</span><span class="n">ki</span><span class="p">],</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">x_gains</span><span class="o">.</span><span class="n">kd</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_gains</span><span class="o">.</span><span class="n">kd</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_gains</span><span class="o">.</span><span class="n">kd</span><span class="p">]</span></div></div>
 
@@ -726,46 +647,30 @@
 </pre></div>
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2020, Shital Shah, Ratnesh Madaan, Sai Vemprala, Nicholas Gyde.
-
-    </p>
+    <p>&#169; Copyright 2020, Shital Shah, Ratnesh Madaan, Sai Vemprala, Nicholas Gyde.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
