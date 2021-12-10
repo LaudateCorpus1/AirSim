@@ -67,7 +67,7 @@ void cbLocalPose(ConstPosesStampedPtr& msg)
             std::cout << " oz: " << std::right << std::setw(NWIDTH) << oz;
             std::cout << std::endl;
         }
-        if (i == msg->pose_size() - 1) {
+        if (i == 0) {
             msr::airlib::Vector3r p(x, -y, -z);
             msr::airlib::Quaternionr o(ow, ox, -oy, -oz);
 
@@ -81,7 +81,7 @@ void cbLocalPose(ConstPosesStampedPtr& msg)
     ++count;
 }
 
-void cbGobalPose(ConstPosesStampedPtr& msg)
+void cbGlobalPose(ConstPosesStampedPtr& msg)
 {
     std::cout << std::fixed;
     std::cout << std::setprecision(4);
@@ -122,9 +122,8 @@ int main(int _argc, char** _argv)
 
     // Listen to Gazebo topics
     gazebo::transport::SubscriberPtr sub_pose1 = node->Subscribe("~/pose/local/info", cbLocalPose);
-    gazebo::transport::SubscriberPtr sub_pose2 = node->Subscribe("~/pose/info", cbGobalPose);
+    gazebo::transport::SubscriberPtr sub_pose2 = node->Subscribe("~/pose/info", cbGlobalPose);
 
-    // Busy wait loop...replace with your own code as needed.
     while (true)
         gazebo::common::Time::MSleep(10);
 

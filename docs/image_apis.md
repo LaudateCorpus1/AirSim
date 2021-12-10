@@ -133,10 +133,13 @@ For a more complete ready to run sample code please see [sample code in HelloDro
 See also [other example code](https://github.com/Microsoft/AirSim/tree/master/Examples/DataCollection/StereoImageGenerator.hpp) that generates specified number of stereo images along with ground truth depth and disparity and saving it to [pfm format](pfm.md).
 
 ## Available Cameras
+
+These are the default cameras already available in each vehicle. Apart from these, you can add more cameras to the vehicles and external cameras which are not attached to any vehicle through the [settings](settings.md).
+
 ### Car
 The cameras on car can be accessed by following names in API calls: `front_center`, `front_right`, `front_left`, `fpv` and `back_center`. Here FPV camera is driver's head position in the car.
 ### Multirotor
-The cameras in CV mode can be accessed by following names in API calls: `front_center`, `front_right`, `front_left`, `bottom_center` and `back_center`. 
+The cameras on the drone can be accessed by following names in API calls: `front_center`, `front_right`, `front_left`, `bottom_center` and `back_center`. 
 ### Computer Vision Mode
 Camera names are same as in multirotor.
 
@@ -171,6 +174,11 @@ The `simSetCameraPose` sets the pose for the specified camera while taking an in
 camera_pose = airsim.Pose(airsim.Vector3r(0, 0, 0), airsim.to_quaternion(0.261799, 0, 0))  #PRY in radians
 client.simSetCameraPose(0, camera_pose);
 ```
+
+- `simSetCameraFov` allows changing the Field-of-View of the camera at runtime.
+- `simSetDistortionParams`, `simGetDistortionParams` allow setting and fetching the distortion parameters K1, K2, K3, P1, P2
+
+All Camera APIs take in 3 common parameters apart from the API-specific ones, `camera_name`(str), `vehicle_name`(str) and `external`(bool, to indicate [External Camera](settings.md#external-cameras)). Camera and vehicle name is used to get the specific camera, if `external` is set to `true`, then the vehicle name is ignored. Also see [external_camera.py](https://github.com/microsoft/AirSim/blob/master/PythonClient/computer_vision/external_camera.py) for example usage of these APIs.
 
 ### Gimbal
 You can set stabilization for pitch, roll or yaw for any camera [using settings](settings.md#gimbal).
@@ -209,7 +217,9 @@ To change resolution, FOV etc, you can use [settings.json](settings.md). For exa
   DisparityNormalized = 4,
   Segmentation = 5,
   SurfaceNormals = 6,
-  Infrared = 7
+  Infrared = 7,
+  OpticalFlow = 8,
+  OpticalFlowVis = 9
 ```                
 
 ### DepthPlanar and DepthPerspective
@@ -278,6 +288,9 @@ The `simGetSegmentationObjectID` API allows you get object ID for given mesh nam
 
 ### Infrared
 Currently this is just a map from object ID to grey scale 0-255. So any mesh with object ID 42 shows up with color (42, 42, 42). Please see [segmentation section](#segmentation) for more details on how to set object IDs. Typically noise setting can be applied for this image type to get slightly more realistic effect. We are still working on adding other infrared artifacts and any contributions are welcome.
+
+### OpticalFlow and OpticalFlowVis
+These image types return information about motion perceived by the point of view of the camera. OpticalFlow returns a 2-channel image where the channels correspond to vx and vy respectively. OpticalFlowVis is similar to OpticalFlow but converts flow data to RGB for a more 'visual' output.
 
 ## Example Code
 A complete example of setting vehicle positions at random locations and orientations and then taking images can be found in [GenerateImageGenerator.hpp](https://github.com/Microsoft/AirSim/tree/master/Examples/DataCollection/StereoImageGenerator.hpp). This example generates specified number of stereo images and ground truth disparity image and saving it to [pfm format](pfm.md).

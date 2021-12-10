@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 project(GazeboDrone)
 
 set(AIRSIM_ROOT ..)
-set(CMAKE_CXX_COMPILER /usr/bin/g++)
 
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 11)
@@ -16,12 +15,11 @@ include_directories(
     ${AIRSIM_ROOT}/AirLib/deps/eigen3
     ${AIRSIM_ROOT}/AirLib/deps/rpclib/include
     ${AIRSIM_ROOT}/AirLib/include
-    ${AIRSIM_ROOT}/AirLib/deps/MavLinkCom/include
 )
 
 link_directories(
     ${GAZEBO_LIBRARY_DIRS}
-    ../../AirLib/lib/x64
+    ../../build_release/output/lib
 )
 
 list(APPEND CMAKE_CXX_FLAGS "${GAZEBO_CXX_FLAGS}")
@@ -34,6 +32,5 @@ target_link_libraries(
     pthread
     AirLib
     rpc
-    MavLinkCom
 )
 

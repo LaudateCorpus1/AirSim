@@ -33,6 +33,7 @@ cmake_install.cmake
 CMakeCache.txt
 
 #Unreal Engine
+/UnrealEngine
 StarterContent/
 Saved/
 !DefaultEditorPerProjectUserSettings.ini #contains use less CPU setting
@@ -379,6 +380,11 @@ ros/devel/
 ros/logs/
 ros/.catkin_workspace
 ros/src/CMakeLists.txt
+
+# ROS2
+ros2/install/
+ros2/log/
+ros2/src/log
 
 # docs
 docs/README.md

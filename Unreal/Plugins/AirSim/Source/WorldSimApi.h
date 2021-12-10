@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "common/CommonStructs.hpp"
+#include "common/GeodeticConverter.hpp"
 #include "api/WorldSimApiBase.hpp"
 #include "SimMode/SimModeBase.h"
 #include "Components/StaticMeshComponent.h"
@@ -15,14 +16,17 @@ public:
     typedef msr::airlib::Pose Pose;
     typedef msr::airlib::Vector3r Vector3r;
     typedef msr::airlib::MeshPositionVertexBuffersResponse MeshPositionVertexBuffersResponse;
+    typedef msr::airlib::ImageCaptureBase ImageCaptureBase;
+    typedef msr::airlib::CameraDetails CameraDetails;
 
     WorldSimApi(ASimModeBase* simmode);
     virtual ~WorldSimApi() = default;
 
     virtual bool loadLevel(const std::string& level_name) override;
 
-    virtual std::string spawnObject(std::string& object_name, const std::string& load_name, const WorldSimApi::Pose& pose, const WorldSimApi::Vector3r& scale, bool physics_enabled) override;
+    virtual std::string spawnObject(const std::string& object_name, const std::string& load_name, const WorldSimApi::Pose& pose, const WorldSimApi::Vector3r& scale, bool physics_enabled, bool is_blueprint) override;
     virtual bool destroyObject(const std::string& object_name) override;
+    virtual std::vector<std::string> listAssets() const override;
 
     virtual bool isPaused() const override;
     virtual void reset() override;
@@ -44,7 +48,10 @@ public:
     virtual void printLogMessage(const std::string& message,
                                  const std::string& message_param = "", unsigned char severity = 0) override;
 
+    virtual bool setLightIntensity(const std::string& light_name, float intensity) override;
     virtual std::unique_ptr<std::vector<std::string>> swapTextures(const std::string& tag, int tex_id = 0, int component_id = 0, int material_id = 0) override;
+    virtual bool setObjectMaterial(const std::string& object_name, const std::string& material_name) override;
+    virtual bool setObjectMaterialFromTexture(const std::string& object_name, const std::string& texture_path) override;
     virtual std::vector<std::string> listSceneObjects(const std::string& name_regex) const override;
     virtual Pose getObjectPose(const std::string& object_name) const override;
     virtual bool setObjectPose(const std::string& object_name, const Pose& pose, bool teleport) override;
@@ -74,8 +81,28 @@ public:
 
     virtual std::string getSettingsString() const override;
 
+    virtual bool testLineOfSightBetweenPoints(const msr::airlib::GeoPoint& point1, const msr::airlib::GeoPoint& point2) const override;
+    virtual std::vector<msr::airlib::GeoPoint> getWorldExtents() const override;
+
+    // Camera APIs
+    virtual msr::airlib::CameraInfo getCameraInfo(const CameraDetails& camera_details) const override;
+    virtual void setCameraPose(const msr::airlib::Pose& pose, const CameraDetails& camera_details) override;
+    virtual void setCameraFoV(float fov_degrees, const CameraDetails& camera_details) override;
+    virtual void setDistortionParam(const std::string& param_name, float value, const CameraDetails& camera_details) override;
+    virtual std::vector<float> getDistortionParams(const CameraDetails& camera_details) const override;
+
+    virtual std::vector<ImageCaptureBase::ImageResponse> getImages(const std::vector<ImageCaptureBase::ImageRequest>& requests,
+                                                                   const std::string& vehicle_name, bool external) const override;
+    virtual std::vector<uint8_t> getImage(ImageCaptureBase::ImageType image_type, const CameraDetails& camera_details) const override;
+
+    virtual void addDetectionFilterMeshName(ImageCaptureBase::ImageType image_type, const std::string& mesh_name, const CameraDetails& camera_details) override;
+    virtual void setDetectionFilterRadius(ImageCaptureBase::ImageType image_type, float radius_cm, const CameraDetails& camera_details) override;
+    virtual void clearDetectionMeshNames(ImageCaptureBase::ImageType image_type, const CameraDetails& camera_details) override;
+    virtual std::vector<msr::airlib::DetectionInfo> getDetections(ImageCaptureBase::ImageType image_type, const CameraDetails& camera_details) override;
+
 private:
-    AActor* createNewActor(const FActorSpawnParameters& spawn_params, const FTransform& actor_transform, const Vector3r& scale, UStaticMesh* static_mesh);
+    AActor* createNewStaticMeshActor(const FActorSpawnParameters& spawn_params, const FTransform& actor_transform, const Vector3r& scale, UStaticMesh* static_mesh);
+    AActor* createNewBPActor(const FActorSpawnParameters& spawn_params, const FTransform& actor_transform, const Vector3r& scale, UBlueprint* blueprint);
     void spawnPlayer();
 
 private:

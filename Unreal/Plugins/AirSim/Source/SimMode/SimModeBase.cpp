@@ -64,6 +64,10 @@ ASimModeBase::ASimModeBase()
     }
     else
         loading_screen_widget_ = nullptr;
+    static ConstructorHelpers::FObjectFinder<UMaterial> domain_rand_mat_finder(TEXT("Material'/AirSim/HUDAssets/DomainRandomizationMaterial.DomainRandomizationMaterial'"));
+    if (domain_rand_mat_finder.Succeeded()) {
+        domain_rand_material_ = domain_rand_mat_finder.Object;
+    }
 }
 
 void ASimModeBase::toggleLoadingScreen(bool is_visible)
@@ -180,7 +184,7 @@ void ASimModeBase::setStencilIDs()
 
     if (getSettings().segmentation_setting.init_method ==
         AirSimSettings::SegmentationSetting::InitMethodType::CommonObjectsRandomIDs) {
-        UAirBlueprintLib::InitializeMeshStencilIDs(!getSettings().segmentation_setting.override_existing);
+        UAirBlueprintLib::InitializeMeshStencilIDs(getSettings().segmentation_setting.override_existing);
     }
     //else don't init
 }
@@ -279,14 +283,12 @@ void ASimModeBase::setTimeOfDay(bool is_enabled, const std::string& start_dateti
 
 bool ASimModeBase::isPaused() const
 {
-    return false;
+    return UGameplayStatics::IsGamePaused(this->GetWorld());
 }
 
 void ASimModeBase::pause(bool is_paused)
 {
-    //should be overridden by derived class
-    unused(is_paused);
-    throw std::domain_error("Pause is not implemented by SimMode");
+    UGameplayStatics::SetGamePaused(this->GetWorld(), is_paused);
 }
 
 void ASimModeBase::continueForTime(double seconds)
@@ -459,6 +461,33 @@ void ASimModeBase::initializeCameraDirector(const FTransform& camera_transform, 
     }
 }
 
+void ASimModeBase::initializeExternalCameras()
+{
+    FActorSpawnParameters camera_spawn_params;
+    camera_spawn_params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+    const auto& transform = getGlobalNedTransform();
+
+    //for each camera in settings
+    for (const auto& camera_setting_pair : getSettings().external_cameras) {
+        const auto& setting = camera_setting_pair.second;
+
+        //get pose
+        FVector position = transform.fromLocalNed(setting.position) - transform.fromLocalNed(Vector3r::Zero());
+        FTransform camera_transform(FRotator(setting.rotation.pitch, setting.rotation.yaw, setting.rotation.roll),
+                                    position,
+                                    FVector(1., 1., 1.));
+
+        //spawn and attach camera to pawn
+        camera_spawn_params.Name = FName(("external_" + camera_setting_pair.first).c_str());
+        APIPCamera* camera = this->GetWorld()->SpawnActor<APIPCamera>(pip_camera_class, camera_transform, camera_spawn_params);
+
+        camera->setupCameraFromSettings(setting, transform);
+
+        //add on to our collection
+        external_cameras_.insert_or_assign(camera_setting_pair.first, camera);
+    }
+}
+
 bool ASimModeBase::toggleRecording()
 {
     if (isRecording())
@@ -482,6 +511,17 @@ void ASimModeBase::startRecording()
 bool ASimModeBase::isRecording() const
 {
     return FRecordingThread::isRecording();
+}
+
+const APIPCamera* ASimModeBase::getCamera(const msr::airlib::CameraDetails& camera_details) const
+{
+    return camera_details.external ? getExternalCamera(camera_details.camera_name)
+                                   : getVehicleSimApi(camera_details.vehicle_name)->getCamera(camera_details.camera_name);
+}
+
+const UnrealImageCapture* ASimModeBase::getImageCapture(const std::string& vehicle_name, bool external) const
+{
+    return external ? external_image_capture_.get() : getVehicleSimApi(vehicle_name)->getImageCapture();
 }
 
 //API server start/stop
@@ -532,14 +572,7 @@ void ASimModeBase::updateDebugReport(msr::airlib::StateReporterWrapper& debug_re
 
             reporter.writeHeading(std::string("Vehicle: ").append(vehicle_name == "" ? "(default)" : vehicle_name));
 
-            const msr::airlib::Kinematics::State* kinematics = vehicle_sim_api->getGroundTruthKinematics();
-
-            reporter.writeValue("Position", kinematics->pose.position);
-            reporter.writeValue("Orientation", kinematics->pose.orientation);
-            reporter.writeValue("Lin-Vel", kinematics->twist.linear);
-            reporter.writeValue("Lin-Accl", kinematics->accelerations.linear);
-            reporter.writeValue("Ang-Vel", kinematics->twist.angular);
-            reporter.writeValue("Ang-Accl", kinematics->accelerations.angular);
+            vehicle_sim_api->reportState(reporter);
         }
     }
 }
@@ -692,6 +725,10 @@ void ASimModeBase::setupVehiclesAndCamera()
             vehicle_sim_apis_.push_back(std::move(vehicle_sim_api));
         }
     }
+
+    // Create External Cameras
+    initializeExternalCameras();
+    external_image_capture_ = std::make_unique<UnrealImageCapture>(&external_cameras_);
 
     if (getApiProvider()->hasDefaultVehicle()) {
         //TODO: better handle no FPV vehicles scenario

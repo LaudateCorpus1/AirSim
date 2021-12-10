@@ -237,6 +237,7 @@ void UAirBlueprintLib::GenerateAssetRegistryMap(const UObject* context, TMap<FSt
     UAirBlueprintLib::RunCommandOnGameThread([context, &asset_map]() {
         FARFilter Filter;
         Filter.ClassNames.Add(UStaticMesh::StaticClass()->GetFName());
+        Filter.ClassNames.Add(UBlueprint::StaticClass()->GetFName());
         Filter.bRecursivePaths = true;
 
         auto world = context->GetWorld();
@@ -247,7 +248,7 @@ void UAirBlueprintLib::GenerateAssetRegistryMap(const UObject* context, TMap<FSt
         AssetRegistryModule.Get().GetAssets(Filter, AssetData);
 
         UObject* LoadObject = NULL;
-        for (auto asset : AssetData) {
+        for (const auto& asset : AssetData) {
             FString asset_name = asset.AssetName.ToString();
             asset_map.Add(asset_name, asset);
         }
@@ -354,20 +355,20 @@ std::string UAirBlueprintLib::GetMeshName(ALandscapeProxy* mesh)
     return std::string(TCHAR_TO_UTF8(*(mesh->GetName())));
 }
 
-void UAirBlueprintLib::InitializeMeshStencilIDs(bool ignore_existing)
+void UAirBlueprintLib::InitializeMeshStencilIDs(bool override_existing)
 {
     for (TObjectIterator<UStaticMeshComponent> comp; comp; ++comp) {
-        InitializeObjectStencilID(*comp, ignore_existing);
+        InitializeObjectStencilID(*comp, override_existing);
     }
     for (TObjectIterator<USkinnedMeshComponent> comp; comp; ++comp) {
-        InitializeObjectStencilID(*comp, ignore_existing);
+        InitializeObjectStencilID(*comp, override_existing);
     }
     //for (TObjectIterator<UFoliageType> comp; comp; ++comp)
     //{
     //    InitializeObjectStencilID(*comp);
     //}
     for (TObjectIterator<ALandscapeProxy> comp; comp; ++comp) {
-        InitializeObjectStencilID(*comp, ignore_existing);
+        InitializeObjectStencilID(*comp, override_existing);
     }
 }
 
